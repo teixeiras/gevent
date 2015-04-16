@@ -27,6 +27,12 @@ ext_errors = (CCompilerError, DistutilsExecError, DistutilsPlatformError, IOErro
 __version__ = re.search("__version__\s*=\s*'(.*)'", open('gevent/__init__.py').read(), re.M).group(1)
 assert __version__
 
+if sys.version_info[0] == 2 and sys.version_info[1] < 7:
+    print('Sorry, Python < 2.7 is not supported')
+    sys.exit(1)
+
+
+
 
 def parse_environ(key):
     value = os.environ.get(key)
@@ -334,7 +340,6 @@ def run_setup(ext_modules, run_make):
         zip_safe=False,
         classifiers=[
             "License :: OSI Approved :: MIT License",
-            "Programming Language :: Python :: 2.6",
             "Programming Language :: Python :: 2.7",
             "Operating System :: MacOS :: MacOS X",
             "Operating System :: POSIX",
